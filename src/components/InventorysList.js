@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAll, findByDescription } from "../services/InventoryService";
+import { getAll } from "../services/InventoryService";
 import { Link } from "react-router-dom";
 import dayjs from 'dayjs'
 import { DataGrid } from '@material-ui/data-grid';
@@ -8,10 +8,6 @@ const InventorysList = () => {
   const [inventorys, setInventorys] = useState([]);
   const [currentInventory, setCurrentInventory] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const [searchDescription, setSearchDescription] = useState("");
-
-  const [count, setCount] = useState(0);
-
 
   useEffect(() => {
     retrieveInventorys();
@@ -64,42 +60,14 @@ const InventorysList = () => {
         {currentInventory ? (
           <div>
             <h4>Selected Player</h4>
+   
+
             <div>
-              <label>
-                <strong>Year:</strong>
-              </label>{" "}
-              {currentInventory.year}
+              <img src={currentInventory.card_image_front} alt="" style={{ "maxWidth": "300px", "margin": "10px"}}/>
+              <img src={currentInventory.card_image_back} alt="" style={{ "maxWidth": "300px", "margin": "10px"}}/>
             </div>
-            <div>
-              <label>
-                <strong>Brand:</strong>
-              </label>{" "}
-              {currentInventory.brand}
-            </div>
-            <div>
-              <label>
-                <strong>First Name:</strong>
-              </label>{" "}
-              {currentInventory.first_name}
-            </div>
-            <div>
-              <label>
-                <strong>Last Name:</strong>
-              </label>{" "}
-              {currentInventory.last_name}
-            </div>
-            <div>
-              <label>
-                <strong>Card Number:</strong>
-              </label>{" "}
-              {currentInventory.card_number}
-            </div>
-            <div>
-              <label>
-                <strong>Card Condition:</strong>
-              </label>{" "}
-              {currentInventory.card_condition}
-            </div>
+
+
             <div>
               <label>
                 <strong>Description:</strong>
@@ -137,9 +105,7 @@ const InventorysList = () => {
               {'$' + currentInventory.profit_loss}
             </div>
 
-            <div>
-              <img src={currentInventory.card_image_front} alt="" style={{ "maxWidth": "300px"}}/>
-            </div>
+     
 
             <Link
               to={"/inventorys/" + currentInventory.baseball_card_id}

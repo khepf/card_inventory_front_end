@@ -31,7 +31,3 @@ export const remove = (id, front_id, back_id) => {
 export const removeAll = () => {
   return http.delete(`/inventorys`);
 };
-
-export const findByDescription = description => {
-  return http.get(`/inventorys?description=${description}`);
-};
