@@ -122,6 +122,7 @@ const previewFile2 = (file) => {
       .then(response => {
         console.log(response.data);
         setMessage("The inventory was updated successfully!");
+        props.history.push("/inventorys");
       })
       .catch(e => {
         console.log(e);

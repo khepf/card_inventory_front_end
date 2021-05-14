@@ -125,6 +125,7 @@ const previewFile2 = (file) => {
         setPreviewSource('');
         setFileInputState2('');
         setPreviewSource2('');
+        props.history.push("/inventorys");
         console.log(response.data);
       })
       .catch(e => {

@@ -41,6 +41,7 @@ const TheLogin = (props) => {
       console.log('login post response', response)
       setCurrentAccountInfo(response.data);
       props.parentCallback(response.data);
+      props.history.push("/inventorys");
     })
     .catch(e => {
       console.log(e);
