@@ -9,6 +9,7 @@ import InventorysList from "./components/InventorysList";
 import TheFooter from "./components/TheFooter";
 import TheLogin from "./components/TheLogin";
 import TheNav from "./components/TheNav";
+import NotFound from "./components/NotFound";
 
 export const AppContext = React.createContext();
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/inventorys/:id" render={(props) => (
             <Inventory {...props} info={currentAccountInfo} />
             )} />
+          <Route component={NotFound} />
         </Switch>
       </div>
 

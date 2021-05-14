@@ -32,8 +32,11 @@ export const removeAll = () => {
 };
 
 export const loginToServer = data => {
-  // http.setRequestHeader('Content-type', 'Access-Control-Allow-Origin');
   return http.post("/login", data);
+}
+
+export const logoutFromServer = data => {
+  return http.delete("/logout", data);
 }
 
 export const testRoute = data => {

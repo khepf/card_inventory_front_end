@@ -66,23 +66,6 @@ const TheLogin = (props) => {
         )}
         rules={{ required: 'User name required' }}
       />
-      {/* <Controller
-        name="email"
-        control={control}
-        defaultValue=""
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <TextField
-            label="Email"
-            variant="filled"
-            value={value}
-            onChange={onChange}
-            error={!!error}
-            helperText={error ? error.message : null}
-            type="email"
-          />
-        )}
-        rules={{ required: 'Email required' }}
-      /> */}
       <Controller
         name="password"
         control={control}
