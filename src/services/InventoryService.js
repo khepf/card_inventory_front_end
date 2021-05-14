@@ -1,8 +1,8 @@
 import http from "../http-common";
 
-export const getAll = () => {
-  console.log('get all')
-  return http.get("/inventorys");
+export const getAll = (accountInfo) => {
+  console.log('get all', accountInfo)
+  return http.get(`/inventorys/${accountInfo.account_number}`);
 };
 
 export const get = id => {
@@ -31,3 +31,12 @@ export const remove = (id, front_id, back_id) => {
 export const removeAll = () => {
   return http.delete(`/inventorys`);
 };
+
+export const loginToServer = data => {
+  // http.setRequestHeader('Content-type', 'Access-Control-Allow-Origin');
+  return http.post("/login", data);
+}
+
+export const testRoute = data => {
+  return http.post("/testroute", data)
+}

@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const AddInventory = () => {
+const AddInventory = (props) => {
   const initialInventoryState = {
     brand: "",
     buy_date: "",
@@ -19,7 +19,9 @@ const AddInventory = () => {
     sell_price: "",
     year: "",
     card_image_front: "",
-    card_image_back: ""
+    card_image_back: "",
+    account_number: "",
+    account_token: ""
   };
   const [inventory, setInventory] = useState(initialInventoryState);
   const [submitted, setSubmitted] = useState(false);
@@ -78,6 +80,8 @@ const previewFile2 = (file) => {
 };
 
   const saveInventory = (event) => {
+    const accountInfo = props.info ? props.info : {};
+    console.log("accountInfo from inside saveInventorys", accountInfo);
     if (event) event.preventDefault();
     var data = {
       brand: inventory.brand,
@@ -93,7 +97,9 @@ const previewFile2 = (file) => {
       sell_price: inventory.sell_price,
       year: inventory.year,
       card_image_front: previewSource,
-      card_image_back: previewSource2
+      card_image_back: previewSource2,
+      account_number: accountInfo.account_number,
+      account_token: accountInfo.token
     };
 
     create(data)
@@ -142,6 +148,7 @@ const previewFile2 = (file) => {
         </div>
       ) : (
         <form onSubmit={saveInventory}>
+          <div><h5>*Images must be less than 500k in size</h5></div>
           <div className="form-group">
             <label htmlFor="year">Year</label>
             <input

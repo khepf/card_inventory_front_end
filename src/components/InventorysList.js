@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import dayjs from 'dayjs'
 import { DataGrid } from '@material-ui/data-grid';
 
-const InventorysList = () => {
+const InventorysList = (props) => {
   const [inventorys, setInventorys] = useState([]);
   const [currentInventory, setCurrentInventory] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
@@ -13,9 +13,12 @@ const InventorysList = () => {
     retrieveInventorys();
   }, []);
   
+  
 
   const retrieveInventorys = () => {
-    getAll()
+    const accountInfo = props.info ? props.info : {};
+    console.log("accountInfo from inside retrieveInventorys", accountInfo);
+    getAll(accountInfo)
       .then(response => {
         setInventorys(response.data);
         console.log(response.data);

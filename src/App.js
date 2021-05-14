@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -7,32 +7,33 @@ import AddInventory from "./components/AddInventory";
 import Inventory from "./components/Inventory";
 import InventorysList from "./components/InventorysList";
 import TheFooter from "./components/TheFooter";
+import TheLogin from "./components/TheLogin";
+import TheNav from "./components/TheNav";
+
+export const AppContext = React.createContext();
 
 function App() {
+  const [currentAccountInfo, setCurrentAccountInfo] = useState({});
+
+  const callback = (info) => {
+    console.log('app info in callback', info)
+    setCurrentAccountInfo(info);
+}
   return (
     <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <a href="/inventorys" className="navbar-brand">
-          Card Inventory
-        </a>
-        <div className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link to={"/inventorys"} className="nav-link">
-              Inventory
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to={"/add"} className="nav-link">
-              Add
-            </Link>
-          </li>
-        </div>
-      </nav>
+      <TheNav />
 
       <div className="container mt-3">
         <Switch>
-          <Route exact path={["/", "/inventorys"]} component={InventorysList} />
-          <Route exact path="/add" component={AddInventory} />
+          <Route exact path={["/"]}    render={(props) => (
+            <TheLogin {...props} parentCallback={callback} />
+            )}/>
+          <Route exact path={["/inventorys"]} render={(props) => (
+            <InventorysList {...props} info={currentAccountInfo} />
+            )}/>
+          <Route exact path={["/add"]} render={(props) => (
+            <AddInventory {...props} info={currentAccountInfo} />
+            )}/>
           <Route path="/inventorys/:id" component={Inventory} />
         </Switch>
       </div>
