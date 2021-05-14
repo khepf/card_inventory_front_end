@@ -34,12 +34,14 @@ const Inventory = props => {
   const [previewSource2, setPreviewSource2] = useState('');
 
   const getInventory = id => {
-    get(id)
+    const accountInfo = props.info ? props.info : {};
+    console.log("accountInfo from inside getInventory", accountInfo);
+    get(id, accountInfo.account_number)
       .then(response => {
+        console.log('getInventory', response);
         response.data.buy_date = response.data.buy_date ? new Date(response.data.buy_date) : null;
         response.data.sell_date = response.data.sell_date ? new Date(response.data.sell_date) : null;
         setCurrentInventory(response.data);
-        console.log('getInventory', response.data);
       })
       .catch(e => {
         console.log(e);
@@ -116,7 +118,7 @@ const previewFile2 = (file) => {
 
 
   const updateInventory = () => {
-    update(currentInventory)
+    update(currentInventory, props.info.account_number)
       .then(response => {
         console.log(response.data);
         setMessage("The inventory was updated successfully!");

@@ -5,17 +5,16 @@ export const getAll = (accountInfo) => {
   return http.get(`/inventorys/${accountInfo.account_number}`);
 };
 
-export const get = id => {
-  console.log('get one', id)
-  return http.get(`/inventorys/${id}`);
+export const get = (baseball_card_id, account_number) => {
+  return http.get(`/inventorys/${account_number}/${baseball_card_id}`);
 };
 
 export const create = data => {
   return http.post("/inventorys", data);
 };
 
-export const update = (data) => {
-  return http.put(`/inventorys/${data.baseball_card_id}`, data);
+export const update = (data, account_number) => {
+  return http.put(`/inventorys/${account_number}/${data.baseball_card_id}`, data);
 };
 
 export const remove = (id, front_id, back_id) => {

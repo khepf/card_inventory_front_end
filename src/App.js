@@ -34,7 +34,9 @@ function App() {
           <Route exact path={["/add"]} render={(props) => (
             <AddInventory {...props} info={currentAccountInfo} />
             )}/>
-          <Route path="/inventorys/:id" component={Inventory} />
+          <Route path="/inventorys/:id" render={(props) => (
+            <Inventory {...props} info={currentAccountInfo} />
+            )} />
         </Switch>
       </div>
 
