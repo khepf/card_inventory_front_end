@@ -129,7 +129,7 @@ const previewFile2 = (file) => {
   };
 
   const deleteInventory = () => {
-    remove(currentInventory.baseball_card_id, currentInventory.front_public_id, currentInventory.back_public_id)
+    remove(props.info.account_number, currentInventory.baseball_card_id, currentInventory.front_public_id, currentInventory.back_public_id)
       .then(response => {
         console.log(response.data);
         props.history.push("/inventorys");

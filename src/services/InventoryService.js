@@ -17,14 +17,14 @@ export const update = (data, account_number) => {
   return http.put(`/inventorys/${account_number}/${data.baseball_card_id}`, data);
 };
 
-export const remove = (id, front_id, back_id) => {
+export const remove = (account_number, id, front_id, back_id) => {
   if(front_id === "") {
     front_id = 0
   }
   if(back_id === "") {
     back_id = 0
   }
-  return http.delete(`/inventorys/${id}+${front_id}+${back_id}`);
+  return http.delete(`/inventorys/${account_number}+${id}+${front_id}+${back_id}`);
 };
 
 export const removeAll = () => {
