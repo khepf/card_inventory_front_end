@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {get, update, remove } from "../services/InventoryService";
+import { get, update, remove } from "../services/InventoryService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
-const Inventory = props => {
+const Inventory = (props) => {
   const initialInventoryState = {
     baseball_card_id: "",
     brand: "",
@@ -21,42 +21,46 @@ const Inventory = props => {
     sell_price: "",
     year: "",
     card_image_front: "",
-    card_image_back: ""
+    card_image_back: "",
   };
-  const [currentInventory, setCurrentInventory] = useState(initialInventoryState);
+  const [currentInventory, setCurrentInventory] = useState(
+    initialInventoryState
+  );
   const [buyDate, setBuyDate] = useState(new Date());
   const [sellDate, setSellDate] = useState(new Date());
   const [message, setMessage] = useState("");
 
-  const [fileInputState, setFileInputState] = useState('');
-  const [previewSource, setPreviewSource] = useState('');
+  const [fileInputState, setFileInputState] = useState("");
+  const [previewSource, setPreviewSource] = useState("");
 
-  const [fileInputState2, setFileInputState2] = useState('');
-  const [previewSource2, setPreviewSource2] = useState('');
+  const [fileInputState2, setFileInputState2] = useState("");
+  const [previewSource2, setPreviewSource2] = useState("");
 
-
-
-  const getInventory = id => {
+  const getInventory = (id) => {
     const accountInfo = props.info ? props.info : {};
     console.log("accountInfo from inside getInventory", accountInfo);
     get(id, accountInfo.account_number)
-      .then(response => {
-        console.log('getInventory', response);
-        response.data.buy_date = response.data.buy_date ? new Date(response.data.buy_date) : null;
-        response.data.sell_date = response.data.sell_date ? new Date(response.data.sell_date) : null;
+      .then((response) => {
+        console.log("getInventory", response);
+        response.data.buy_date = response.data.buy_date
+          ? new Date(response.data.buy_date)
+          : null;
+        response.data.sell_date = response.data.sell_date
+          ? new Date(response.data.sell_date)
+          : null;
         setCurrentInventory(response.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
 
   useEffect(() => {
-    console.log('inside useEffect on Inventory page')
+    console.log("inside useEffect on Inventory page");
     getInventory(props.match.params.id);
   }, [props.match.params.id]);
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     setCurrentInventory({ ...currentInventory, [name]: value });
   };
@@ -67,78 +71,83 @@ const Inventory = props => {
 
     // setSelectedFile(file);
     // setFileInputState(e.target.value);
-};
-
-const handleFileInputChange2 = (e) => {
-  const file = e.target.files[0];
-  previewFile2(file);
-  
-  // setSelectedFile(file);
-  // setFileInputState(e.target.value);
-};
-
-const previewFile = (file) => {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  if (file.size > 500000) {
-    alert("Your image is too large")
-  }
-  else {
-    reader.onloadend = () => {
-      setPreviewSource(reader.result);
-      setCurrentInventory({...currentInventory, card_image_front: previewSource});
-      console.log(reader.result);
-      
-  }
   };
-};
 
-const previewFile2 = (file) => {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  if (file.size > 500000) {
-    alert("Your image is too large")
-  }
-  else {
-    reader.onloadend = () => {
-      setPreviewSource2(reader.result);
-      setCurrentInventory({...currentInventory, card_image_back: previewSource2});
-      
-  }
+  const handleFileInputChange2 = (e) => {
+    const file = e.target.files[0];
+    previewFile2(file);
+
+    // setSelectedFile(file);
+    // setFileInputState(e.target.value);
   };
-};
 
-  const handleBuyDate = date => {
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    if (file.size > 500000) {
+      alert("Your image is too large");
+    } else {
+      reader.onloadend = () => {
+        setPreviewSource(reader.result);
+        setCurrentInventory({
+          ...currentInventory,
+          card_image_front: previewSource,
+        });
+        console.log(reader.result);
+      };
+    }
+  };
+
+  const previewFile2 = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    if (file.size > 500000) {
+      alert("Your image is too large");
+    } else {
+      reader.onloadend = () => {
+        setPreviewSource2(reader.result);
+        setCurrentInventory({
+          ...currentInventory,
+          card_image_back: previewSource2,
+        });
+      };
+    }
+  };
+
+  const handleBuyDate = (date) => {
     setBuyDate(date);
-    setCurrentInventory({...currentInventory, buy_date: date});
-  }
+    setCurrentInventory({ ...currentInventory, buy_date: date });
+  };
 
-  const handleSellDate = date => {
+  const handleSellDate = (date) => {
     setSellDate(date);
-    setCurrentInventory({...currentInventory, sell_date: date});
-  }
-
-
+    setCurrentInventory({ ...currentInventory, sell_date: date });
+  };
 
   const updateInventory = () => {
     update(currentInventory, props.info.account_number)
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
         setMessage("The inventory was updated successfully!");
         props.history.push("/inventorys");
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
 
   const deleteInventory = () => {
-    remove(props.info.account_number, currentInventory.baseball_card_id, currentInventory.front_public_id, currentInventory.back_public_id)
-      .then(response => {
+    remove(
+      props.info.account_number,
+      currentInventory.baseball_card_id,
+      currentInventory.front_public_id,
+      currentInventory.back_public_id
+    )
+      .then((response) => {
         console.log(response.data);
         props.history.push("/inventorys");
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
@@ -232,7 +241,7 @@ const previewFile2 = (file) => {
               <DatePicker
                 selected={currentInventory.buy_date}
                 onChange={handleBuyDate}
-                />
+              />
             </div>
             <div className="form-group">
               <label htmlFor="buy_price">Buy Price</label>
@@ -250,7 +259,7 @@ const previewFile2 = (file) => {
               <DatePicker
                 selected={currentInventory.sell_date}
                 onChange={handleSellDate}
-                />
+              />
             </div>
             <div className="form-group">
               <label htmlFor="sell_price">Sell Price</label>
@@ -277,62 +286,89 @@ const previewFile2 = (file) => {
             </div>
 
             <div className="form-group">
-            <label htmlFor="card_image_front">Front of Card</label>
-            <input
-              type="file"
-              className="form-control"
-              id="card_image_front"
-              name="card_image_front"
-              onChange={handleFileInputChange}
-              value={fileInputState}
-            />
-          </div>
-          <div>
-                <img src={currentInventory.card_image_front} alt="" style={{ "maxWidth": "150px" }}/>
-               
+              <label htmlFor="card_image_front">Front of Card</label>
+              <input
+                type="file"
+                className="form-control"
+                id="card_image_front"
+                name="card_image_front"
+                onChange={handleFileInputChange}
+                value={fileInputState}
+              />
+            </div>
+            <div>
+              <img
+                src={currentInventory.card_image_front}
+                alt=""
+                style={{ maxWidth: "150px" }}
+              />
             </div>
 
-          <div className="form-group">
-            <label htmlFor="card_image_back">Back of Card</label>
-            <input
-              type="file"
-              className="form-control"
-              id="card_image_back"
-              name="card_image_back"
-              onChange={handleFileInputChange2}
-              value={fileInputState2}
-            />
-          </div>
-          <div>
-             
-                <img src={currentInventory.card_image_back} alt="" style={{ "maxWidth": "150px" }}/>
+            <div className="form-group">
+              <label htmlFor="card_image_back">Back of Card</label>
+              <input
+                type="file"
+                className="form-control"
+                id="card_image_back"
+                name="card_image_back"
+                onChange={handleFileInputChange2}
+                value={fileInputState2}
+              />
+            </div>
+            <div>
+              <img
+                src={currentInventory.card_image_back}
+                alt=""
+                style={{ maxWidth: "150px" }}
+              />
             </div>
           </form>
-<div>
-          <Button variant="contained" color="primary" onClick={deleteInventory}>
-            Delete
-          </Button>
+          <div>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={deleteInventory}
+            >
+              Delete
+            </Button>
 
-          <Button
-            type="submit"
-            variant="contained" color="primary"
-            onClick={updateInventory}
-          >
-            Update
-          </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={updateInventory}
+            >
+              Update
+            </Button>
 
-          <Button component={ Link } to={"/inventorys/"} variant="contained" color="primary">
-          Cancel
-        </Button>
+            <Button
+              component={Link}
+              to={"/inventorys/"}
+              variant="contained"
+              color="primary"
+            >
+              Cancel
+            </Button>
+          </div>
+          <div>
+            {previewSource && (
+              <img
+                src={previewSource}
+                alt="front of card"
+                style={{ height: "150px" }}
+              />
+            )}
+          </div>
 
-        </div>
-          <div>{previewSource && (
-            <img src={previewSource} alt="front of card" style={{height: '150px'}}/>
-          )}</div>
-          
-          <div>{previewSource2 && (
-            <img src={previewSource2} alt="back of card" style={{height: '150px'}}/>
-          )}</div>
+          <div>
+            {previewSource2 && (
+              <img
+                src={previewSource2}
+                alt="back of card"
+                style={{ height: "150px" }}
+              />
+            )}
+          </div>
           <p>{message}</p>
         </div>
       ) : (

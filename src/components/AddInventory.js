@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { create } from "../services/InventoryService";
 import DatePicker from "react-datepicker";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -22,20 +22,20 @@ const AddInventory = (props) => {
     card_image_front: "",
     card_image_back: "",
     account_number: "",
-    account_token: ""
+    account_token: "",
   };
   const [inventory, setInventory] = useState(initialInventoryState);
   const [submitted, setSubmitted] = useState(false);
   const [buyDate, setBuyDate] = useState("");
   const [sellDate, setSellDate] = useState("");
 
-  const [fileInputState, setFileInputState] = useState('');
-  const [previewSource, setPreviewSource] = useState('');
+  const [fileInputState, setFileInputState] = useState("");
+  const [previewSource, setPreviewSource] = useState("");
 
-  const [fileInputState2, setFileInputState2] = useState('');
-  const [previewSource2, setPreviewSource2] = useState('');
+  const [fileInputState2, setFileInputState2] = useState("");
+  const [previewSource2, setPreviewSource2] = useState("");
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     setInventory({ ...inventory, [name]: value });
   };
@@ -45,40 +45,38 @@ const AddInventory = (props) => {
     previewFile(file);
     // setSelectedFile(file);
     // setFileInputState(e.target.value);
-};
-
-const handleFileInputChange2 = (e) => {
-  const file = e.target.files[0];
-  previewFile2(file);
-  // setSelectedFile(file);
-  // setFileInputState(e.target.value);
-};
-
-const previewFile = (file) => {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  if (file.size > 500000) {
-    alert("Your image is too large")
-  }
-  else {
-    reader.onloadend = () => {
-      setPreviewSource(reader.result);
-  }
   };
-};
 
-const previewFile2 = (file) => {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  if (file.size > 500000) {
-    alert("Your image is too large")
-  }
-  else {
-    reader.onloadend = () => {
-      setPreviewSource2(reader.result);
-  }
+  const handleFileInputChange2 = (e) => {
+    const file = e.target.files[0];
+    previewFile2(file);
+    // setSelectedFile(file);
+    // setFileInputState(e.target.value);
   };
-};
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    if (file.size > 500000) {
+      alert("Your image is too large");
+    } else {
+      reader.onloadend = () => {
+        setPreviewSource(reader.result);
+      };
+    }
+  };
+
+  const previewFile2 = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    if (file.size > 500000) {
+      alert("Your image is too large");
+    } else {
+      reader.onloadend = () => {
+        setPreviewSource2(reader.result);
+      };
+    }
+  };
 
   const saveInventory = (event) => {
     const accountInfo = props.info ? props.info : {};
@@ -100,11 +98,11 @@ const previewFile2 = (file) => {
       card_image_front: previewSource,
       card_image_back: previewSource2,
       account_number: accountInfo.account_number,
-      account_token: accountInfo.token
+      account_token: accountInfo.token,
     };
 
     create(data)
-      .then(response => {
+      .then((response) => {
         setInventory({
           brand: response.data.brand,
           buy_date: response.data.buy_date,
@@ -119,17 +117,17 @@ const previewFile2 = (file) => {
           sell_price: response.data.sell_price,
           year: response.data.year,
           card_image_front: response.data.card_image_front,
-          card_image_back: response.data.card_image_back
+          card_image_back: response.data.card_image_back,
         });
         setSubmitted(true);
-        setFileInputState('');
-        setPreviewSource('');
-        setFileInputState2('');
-        setPreviewSource2('');
+        setFileInputState("");
+        setPreviewSource("");
+        setFileInputState2("");
+        setPreviewSource2("");
         props.history.push("/inventorys");
         console.log(response.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
@@ -150,7 +148,9 @@ const previewFile2 = (file) => {
         </div>
       ) : (
         <form onSubmit={saveInventory}>
-          <div><h5>*Images must be less than 500k in size</h5></div>
+          <div>
+            <h5>*Images must be less than 500k in size</h5>
+          </div>
           <div className="form-group">
             <label htmlFor="year">Year</label>
             <input
@@ -244,9 +244,9 @@ const previewFile2 = (file) => {
 
           <div className="form-group">
             <label htmlFor="buy_date">Buy Date</label>
-            <DatePicker 
-            selected={buyDate} 
-            onChange={date => setBuyDate(date)}
+            <DatePicker
+              selected={buyDate}
+              onChange={(date) => setBuyDate(date)}
             />
           </div>
 
@@ -265,9 +265,9 @@ const previewFile2 = (file) => {
 
           <div className="form-group">
             <label htmlFor="sell_date">Sell Date</label>
-            <DatePicker 
-            selected={sellDate} 
-            onChange={date => setSellDate(date)}
+            <DatePicker
+              selected={sellDate}
+              onChange={(date) => setSellDate(date)}
             />
           </div>
 
@@ -323,13 +323,25 @@ const previewFile2 = (file) => {
           <Button type="submit" variant="contained" color="primary">
             Submit
           </Button>
-          <div>{previewSource && (
-            <img src={previewSource} alt="front of card" style={{height: '300px'}}/>
-          )}</div>
-          
-          <div>{previewSource2 && (
-            <img src={previewSource2} alt="back of card" style={{height: '300px'}}/>
-          )}</div>
+          <div>
+            {previewSource && (
+              <img
+                src={previewSource}
+                alt="front of card"
+                style={{ height: "300px" }}
+              />
+            )}
+          </div>
+
+          <div>
+            {previewSource2 && (
+              <img
+                src={previewSource2}
+                alt="back of card"
+                style={{ height: "300px" }}
+              />
+            )}
+          </div>
         </form>
       )}
     </div>
