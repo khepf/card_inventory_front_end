@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { create } from "../services/InventoryService";
 import DatePicker from "react-datepicker";
+import Button from '@material-ui/core/Button';
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -319,9 +320,9 @@ const previewFile2 = (file) => {
             />
           </div>
 
-          <button type="submit" className="btn btn-success">
+          <Button type="submit" variant="contained" color="primary">
             Submit
-          </button>
+          </Button>
           <div>{previewSource && (
             <img src={previewSource} alt="front of card" style={{height: '300px'}}/>
           )}</div>

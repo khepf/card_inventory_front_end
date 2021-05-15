@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import {get, update, remove } from "../services/InventoryService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Button from '@material-ui/core/Button';
+import { Link } from "react-router-dom";
 
 const Inventory = props => {
   const initialInventoryState = {
@@ -306,18 +308,24 @@ const previewFile2 = (file) => {
                 <img src={currentInventory.card_image_back} alt="" style={{ "maxWidth": "150px" }}/>
             </div>
           </form>
-
-          <button className="badge badge-danger mr-2" onClick={deleteInventory}>
+<div>
+          <Button variant="contained" color="primary" onClick={deleteInventory}>
             Delete
-          </button>
+          </Button>
 
-          <button
+          <Button
             type="submit"
-            className="badge badge-success"
+            variant="contained" color="primary"
             onClick={updateInventory}
           >
             Update
-          </button>
+          </Button>
+
+          <Button component={ Link } to={"/inventorys/"} variant="contained" color="primary">
+          Cancel
+        </Button>
+
+        </div>
           <div>{previewSource && (
             <img src={previewSource} alt="front of card" style={{height: '150px'}}/>
           )}</div>

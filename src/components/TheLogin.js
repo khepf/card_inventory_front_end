@@ -84,12 +84,13 @@ const TheLogin = (props) => {
         rules={{ required: 'Password required' }}
       />
       <div>
-        <Button variant="contained">
-          Cancel
-        </Button>
-        <Button type="submit" variant="contained" color="primary">
+      <Button type="submit" variant="contained" color="primary">
           Login
         </Button>
+        <Button variant="contained" color="primary">
+          Cancel
+        </Button>
+
       </div>
     </form>
   );

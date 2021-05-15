@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import dayjs from 'dayjs'
 import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from "@material-ui/core/styles";
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
   dataGrid: {
@@ -135,13 +136,9 @@ const InventorysList = (props) => {
             </div>
 
      
-
-            <Link
-              to={"/inventorys/" + currentInventory.baseball_card_id}
-              className="badge badge-warning"
-            >
-              Edit
-            </Link>
+            <Button component={ Link } to={"/inventorys/" + currentInventory.baseball_card_id} variant="contained" color="primary">
+    Edit
+</Button>
           </div>
         ) : (
           <div>
