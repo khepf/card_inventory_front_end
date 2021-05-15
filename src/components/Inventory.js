@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {get, update, remove, logoutFromServer} from "../services/InventoryService";
+import {get, update, remove } from "../services/InventoryService";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import styled from 'styled-components'
 
 const Inventory = props => {
   const initialInventoryState = {
@@ -33,14 +32,7 @@ const Inventory = props => {
   const [fileInputState2, setFileInputState2] = useState('');
   const [previewSource2, setPreviewSource2] = useState('');
 
-  const logout = () => {
-    logoutFromServer().then(response => {
-      console.log('logout', response);
-    })
-    .catch(e => {
-      console.log(e);
-    });
-  }
+
 
   const getInventory = id => {
     const accountInfo = props.info ? props.info : {};
@@ -154,7 +146,6 @@ const previewFile2 = (file) => {
       {currentInventory ? (
         <div className="edit-form">
           <h4>Inventory</h4>
-          <button onClick={logout}>Logout</button>
           <form>
             <div className="form-group">
               <label htmlFor="year">Year</label>
