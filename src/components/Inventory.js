@@ -4,8 +4,18 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  buttonsDiv: {
+    display: "flex",
+    justifyContent: "space-around",
+    marginBottom: "10px"
+  },
+});
 
 const Inventory = (props) => {
+  const classes = useStyles();
   const initialInventoryState = {
     baseball_card_id: "",
     brand: "",
@@ -323,7 +333,7 @@ const Inventory = (props) => {
               />
             </div>
           </form>
-          <div>
+          <div className={classes.buttonsDiv}>
             <Button
               variant="contained"
               color="primary"

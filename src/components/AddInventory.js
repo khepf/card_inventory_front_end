@@ -2,10 +2,34 @@ import React, { useState } from "react";
 import { create } from "../services/InventoryService";
 import DatePicker from "react-datepicker";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 import "react-datepicker/dist/react-datepicker.css";
 
+const useStyles = makeStyles({
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px",
+  },
+  formChildren: {
+    flexGrow: 1,
+    margin: "10px",
+  },
+  buttonsDiv: {
+    display: "flex",
+    justifyContent: "space-around",
+    marginBottom: "10px"
+  },
+});
+
 const AddInventory = (props) => {
+  const classes = useStyles();
+
   const initialInventoryState = {
     brand: "",
     buy_date: "",
@@ -138,7 +162,7 @@ const AddInventory = (props) => {
   };
 
   return (
-    <div className="submit-form">
+    <div className={classes.form}>
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
@@ -148,155 +172,121 @@ const AddInventory = (props) => {
         </div>
       ) : (
         <form onSubmit={saveInventory}>
-          <div>
-            <h5>*Images must be less than 500k in size</h5>
-          </div>
-          <div className="form-group">
-            <label htmlFor="year">Year</label>
-            <input
-              type="text"
-              className="form-control"
-              id="year"
-              required
-              value={inventory.year}
-              onChange={handleInputChange}
-              name="year"
-            />
-          </div>
+          <TextField
+            className={classes.formChildren}
+            label="year"
+            id="year"
+            required
+            value={inventory.year}
+            onChange={handleInputChange}
+            name="year"
+          />
 
-          <div className="form-group">
-            <label htmlFor="brand">Brand</label>
-            <input
-              type="text"
-              className="form-control"
-              id="brand"
-              required
-              value={inventory.brand}
-              onChange={handleInputChange}
-              name="brand"
-            />
-          </div>
+          <TextField
+            className={classes.formChildren}
+            label="brand"
+            id="brand"
+            required
+            value={inventory.brand}
+            onChange={handleInputChange}
+            name="brand"
+          />
 
-          <div className="form-group">
-            <label htmlFor="first_name">First Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="first_name"
-              required
-              value={inventory.first_name}
-              onChange={handleInputChange}
-              name="first_name"
-            />
-          </div>
+          <TextField
+            className={classes.formChildren}
+            label="first name"
+            id="first_name"
+            required
+            value={inventory.first_name}
+            onChange={handleInputChange}
+            name="first_name"
+          />
 
-          <div className="form-group">
-            <label htmlFor="last_name">Last Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="last_name"
-              required
-              value={inventory.last_name}
-              onChange={handleInputChange}
-              name="last_name"
-            />
-          </div>
+          <TextField
+            className={classes.formChildren}
+            label="last name"
+            id="last_name"
+            required
+            value={inventory.last_name}
+            onChange={handleInputChange}
+            name="last_name"
+          />
 
-          <div className="form-group">
-            <label htmlFor="card_number">Card Number</label>
-            <input
-              type="text"
-              className="form-control"
-              id="card_number"
-              required
-              value={inventory.card_number}
-              onChange={handleInputChange}
-              name="card_number"
-            />
-          </div>
+          <TextField
+            className={classes.formChildren}
+            label="card #"
+            id="card_number"
+            required
+            value={inventory.card_number}
+            onChange={handleInputChange}
+            name="card_number"
+          />
 
-          <div className="form-group">
-            <label htmlFor="card_condition">Card Condition</label>
-            <input
-              type="text"
-              className="form-control"
-              id="card_condition"
-              required
-              value={inventory.card_condition}
-              onChange={handleInputChange}
-              name="card_condition"
-            />
-          </div>
+          <TextField
+            className={classes.formChildren}
+            label="condition"
+            id="card_condition"
+            required
+            value={inventory.card_condition}
+            onChange={handleInputChange}
+            name="card_condition"
+          />
 
-          <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <input
-              type="text"
-              className="form-control"
-              id="description"
-              required
-              value={inventory.description}
-              onChange={handleInputChange}
-              name="description"
-            />
-          </div>
+          <TextField
+            className={classes.formChildren}
+            label="description"
+            id="description"
+            required
+            value={inventory.description}
+            onChange={handleInputChange}
+            name="description"
+          />
 
-          <div className="form-group">
-            <label htmlFor="buy_date">Buy Date</label>
+          <div className={classes.formChildren}>
+            <label htmlFor="buy_date">buy date</label>
             <DatePicker
               selected={buyDate}
               onChange={(date) => setBuyDate(date)}
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="buy_price">Buy Price</label>
-            <input
-              type="text"
-              className="form-control"
-              id="buy_price"
-              required
-              value={inventory.buy_price}
-              onChange={handleInputChange}
-              name="buy_price"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="sell_date">Sell Date</label>
+          <TextField
+            className={classes.formChildren}
+            label="buy price"
+            id="buy_price"
+            required
+            value={inventory.buy_price}
+            onChange={handleInputChange}
+            name="buy_price"
+          />
+          <div className={classes.formChildren}>
+            <label htmlFor="sell_date">sell date</label>
             <DatePicker
               selected={sellDate}
               onChange={(date) => setSellDate(date)}
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="sell_price">Sell Price</label>
-            <input
-              type="text"
-              className="form-control"
-              id="sell_price"
-              value={inventory.sell_price}
-              onChange={handleInputChange}
-              name="sell_price"
-            />
-          </div>
+          <TextField
+            className={classes.formChildren}
+            label="sell price"
+            id="sell_price"
+            value={inventory.sell_price}
+            onChange={handleInputChange}
+            name="sell_price"
+          />
 
-          <div className="form-group">
-            <label htmlFor="profit_loss">Profit / Loss</label>
-            <input
-              type="text"
-              className="form-control"
-              id="profit_loss"
-              value={inventory.profit_loss}
-              onChange={handleInputChange}
-              name="profit_loss"
-              disabled
-            />
-          </div>
+          <TextField
+            className={classes.formChildren}
+            label="profit/loss"
+            id="profit_loss"
+            value={inventory.profit_loss}
+            onChange={handleInputChange}
+            name="profit_loss"
+            disabled
+          />
 
-          <div className="form-group">
+          <div className={classes.formChildren}>
             <label htmlFor="card_image_front">Front of Card</label>
             <input
               type="file"
@@ -308,7 +298,7 @@ const AddInventory = (props) => {
             />
           </div>
 
-          <div className="form-group">
+          <div className={classes.formChildren}>
             <label htmlFor="card_image_back">Back of Card</label>
             <input
               type="file"
@@ -319,10 +309,28 @@ const AddInventory = (props) => {
               value={fileInputState2}
             />
           </div>
-
-          <Button type="submit" variant="contained" color="primary">
+<div className={classes.formChildren, classes.buttonsDiv}>
+<Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            
+  
+          >
             Submit
           </Button>
+          <Button
+              component={Link}
+              to={"/inventorys/"}
+              variant="contained"
+              color="primary"
+            
+        
+      
+            >
+              Cancel
+            </Button>
+</div>
           <div>
             {previewSource && (
               <img
